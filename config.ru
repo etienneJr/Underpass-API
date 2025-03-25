@@ -5,6 +5,7 @@ require 'hanami/api'
 require 'overpass_parser'
 require 'json'
 require_relative 'backends/postgres_osmosis/postgres_osmosis'
+require_relative 'backends/postgres_osm2pgsql/postgres_osm2pgsql'
 require_relative 'backends/duckdb_quackosm/duckdb_quackosm'
 
 class App < Hanami::API
