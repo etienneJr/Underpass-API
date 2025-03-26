@@ -72,7 +72,10 @@ SELECT * FROM relation
 
 CREATE OR REPLACE TEMP VIEW area AS
 SELECT
-  p.osm_id AS id,
+  CASE
+    WHEN p.osm_id<0 THEN 3600000000-p.osm_id /* transform the negative values used here for relations to the id format used for areas in overpass */
+    ELSE p.osm_id
+  END AS id,
   /* CAST(p.tags->'osm_version AS integer)' */ NULL::integer AS version,
   /* CAST(p.tags->'osm_timestamp' AS timestamp without time zone) */ NULL::timestamp without time zone AS created,
   /* CAST(p.tags->'osm_changeset' AS bigint) */ NULL::bigint AS changeset,
