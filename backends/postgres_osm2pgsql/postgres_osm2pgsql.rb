@@ -6,7 +6,7 @@ require 'overpass_parser/sql_dialect/postgres'
 class PostgresOsm2pgsql
   def initialize
     
-    @@con = ENV['DATABASE_URL'])
+    @@con = ENV['DATABASE_URL']
     @@con.query(File.read(File.dirname(__FILE__) + '/view.sql'))
     @dialect = OverpassParser::SqlDialect::Postgres.new(postgres_escape_literal: ->(s) { @@con.escape_literal(s) })
   end

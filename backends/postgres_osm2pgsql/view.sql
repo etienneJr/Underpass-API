@@ -53,9 +53,9 @@ SELECT
   /* CAST(hstore(r.tags)->'osm_changeset' AS bigint) */ NULL::bigint AS changeset,
   /* CAST(hstore(r.tags)->'osm_uid' AS integer) */ NULL::integer AS uid,
   /* CAST(hstore(r.tags)->'osm_user' AS text) */ NULL::text AS user,
-  to_jsonb(hstore(r.tags)) as tags, /* tags is stored as text in this table, need both successive conversion */
+  r.tags as tags,
   NULL::bigint[] AS nodes,
-  to_jsonb(hstore(r.members)) AS members, /* format : "w9941074":"outer" */
+  r.members AS members,
   p.way AS geom, /* get geom from table planet_osm_polygon with negative osm_id values, using JOIN */
   'r' AS osm_type
 FROM planet_osm_rels AS r
@@ -80,7 +80,7 @@ SELECT
   /* CAST(p.tags->'osm_user' AS text) */ NULL::text AS user,
   to_jsonb(p.tags) as tags,
   w.nodes AS nodes, /* For ways only : get nodes from table planet_osm_ways, using JOIN */
-  to_jsonb(hstore(r.members)) AS members, /* For relations only : get members from table planet_osm_rels, using JOIN */
+  r.members AS members, /* For relations only : get members from table planet_osm_rels, using JOIN */
   p.way AS geom,
   'a' AS osm_type
 FROM planet_osm_polygon AS p
