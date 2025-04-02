@@ -30,7 +30,7 @@ SELECT
   to_jsonb(tags) AS tags,
   NULL::bigint[] AS nodes,
   NULL::jsonb AS members,
-  ST_Transform(way,4326) AS geom,
+  way AS geom,
   'n' AS osm_type
 FROM planet_osm_point;
 
@@ -47,7 +47,7 @@ SELECT
   to_jsonb(l.tags) AS tags,
   w.nodes AS nodes, /* replace by `NULL::bigint[] AS nodes` if did not use --slim */
   NULL::jsonb AS members,
-  ST_Transform(l.way,4326) AS geom,
+  l.way AS geom,
   'w' AS osm_type
 FROM planet_osm_line AS l
 LEFT JOIN planet_osm_ways AS w ON osm_id = id /* remove if you did not use --slim */
@@ -62,7 +62,7 @@ SELECT
   to_jsonb(p.tags) as tags,
   w.nodes AS nodes, /* replace by `NULL::bigint[] AS nodes` if did not use --slim */
   NULL::jsonb AS members,
-  ST_Transform(p.way,4326) AS geom,
+  p.way AS geom,
   'w' AS osm_type
 FROM planet_osm_polygon AS p
 LEFT JOIN planet_osm_ways AS w ON osm_id = id /* remove if you did not use --slim */
@@ -82,7 +82,7 @@ SELECT
   r.tags as tags,
   NULL::bigint[] AS nodes,
   r.members AS members,
-  ST_Transform(p.way,4326) AS geom,
+  p.way AS geom,
   'r' AS osm_type
 FROM planet_osm_rels AS r
 LEFT JOIN planet_osm_polygon AS p ON id = -osm_id;
@@ -131,7 +131,7 @@ SELECT
   to_jsonb(p.tags) as tags,
   w.nodes AS nodes, /* For ways only : get nodes from table planet_osm_ways */
   r.members AS members, /* For relations only : get members from table planet_osm_rels */
-  ST_Transform(p.way,4326) AS geom,
+  p.way AS geom,
   'a' AS osm_type
 FROM planet_osm_polygon AS p
 LEFT JOIN planet_osm_ways AS w ON osm_id=w.id

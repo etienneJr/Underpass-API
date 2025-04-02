@@ -38,7 +38,6 @@ class App < Hanami::API
   \"generator\": \"underpass\",
   \"osm3s\": {
     \"backend\": \"#{@@backend.class.name}\",
-    \"query\": \"#{sql.gsub("\n", '\\n').gsub('\\', '\\\\').gsub('"', '\\"')}\",
     \"copyright\": \"The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.\"
   },
   \"elements\": [" + result.join(",\n") + ']}'

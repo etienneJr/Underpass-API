@@ -1,26 +1,26 @@
 version: "3.3"
 
 services:
-  osm2pgsql:
-    profiles: [tools]
-    build:
-      context: docker/osm2pgsql
-    environment:
-      DATABASE_URL: postgresql://postgres@postgres:5432/postgres
-    volumes:
-      - ../../data:/data
-    depends_on:
-      - postgres
+  #osm2pgsql:
+  #  profiles: [tools]
+  #  build:
+  #    context: docker/osm2pgsql
+  #  environment:
+  #    DATABASE_URL: postgres://readonlyuser:iwanttoreadfree@51.159.100.169:5432/osm
+  #  volumes:
+  #    - ../../data:/data
+  #  depends_on:
+  #    - postgres
 
-  postgres:
-    image: postgis/postgis:15-3.4
-    shm_size: 1g
-    environment:
-      POSTGRES_HOST_AUTH_METHOD: trust
-    volumes:
-      - ./docker/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-      - pgdata:/var/lib/postgresql/data
-    restart: unless-stopped
+  #postgres:
+  #  image: postgis/postgis:15-3.4
+  #  shm_size: 1g
+  #  environment:
+  #    POSTGRES_HOST_AUTH_METHOD: password
+  #  volumes:
+  #    - ./docker/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+  #    - pgdata:/var/lib/postgresql/data
+  #  restart: unless-stopped
 
   api:
     extends:
@@ -28,11 +28,11 @@ services:
       service: api
     environment:
       BACKEND: PostgresOsm2pgsql
-      DATABASE_URL: postgresql://postgres@postgres:5432/postgres
+      DATABASE_URL: postgres://readonlyuser:iwanttoreadfree@51.159.100.169:5432/osm
     volumes:
       - .:/srv/app/backends/postgres_osm2pgsql
-    depends_on:
-      - postgres
+    #depends_on:
+    #  - postgres
 
 volumes:
   pgdata:

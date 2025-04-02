@@ -1,6 +1,7 @@
 GIT
-  remote: https://github.com/teritorio/overpass_parser-rb.git
-  revision: 0937495e2eba50ff1a3b4c1f42541fbb41814ec7
+  remote: https://github.com/etienneJr/overpass_parser-rb.git
+  revision: dd2ad3a8ecff0ea3294e6876f97b848a7bf61485
+  branch: specific-for-osm2pgsql
   specs:
     overpass_parser (1.0.0)
       rice (~> 4.0)
